@@ -195,7 +195,7 @@ def cleanup(older_than=24, interactive=True, only_current_session=False):
 
     # Don't do anything for now, continue w/dangling data
     else:
-        print(f"Aborting...")
+        log(f"Aborting...")
 
     # Report on remaining data
     storage_size_gb, storage_num_files = get_dir_size(__storage__, out="GB")
@@ -243,7 +243,7 @@ def clear():
 
     # Be talkative
     msg = "{name:s} flushed {objcount:d} objects from memory"
-    print(msg.format(name=funcName, objcount=counter))
+    log(msg.format(name=funcName, objcount=counter))
 
     return
 
