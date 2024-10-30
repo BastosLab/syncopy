@@ -63,7 +63,7 @@ Syncopy {__version__}
 See https://syncopy.org for the online documentation.
 For bug reports etc. please send an email to syncopy@esi-frankfurt.de
 """
-startup_print_once(msg)
+# startup_print_once(msg)
 
 # Set up sensible printing options for NumPy arrays
 np.set_printoptions(suppress=True, precision=4, linewidth=80)
@@ -170,9 +170,9 @@ from .shared.log import setup_logging
 
 __logdir__ = None  # Gets set in setup_logging() call below.
 setup_logging(spydir=__spydir__, session=__sessionid__)  # Sets __logdir__.
-startup_print_once(
-    f"Logging to log directory '{__logdir__}'.\nTemporary storage directory set to '{__storage__}'.\n"
-)
+# startup_print_once(
+#     f"Logging to log directory '{__logdir__}'.\nTemporary storage directory set to '{__storage__}'.\n"
+# )
 
 storage_msg = (
     "\nSyncopy <core> WARNING: {folder_desc}:s '{tmpdir:s}' "
@@ -199,17 +199,17 @@ else:
         startup_print_once(msg_formatted, force=True)
 
 # Override default traceback (differentiate b/w Jupyter/iPython and regular Python)
-from .shared.errors import SPYExceptionHandler
-
-try:
-    ipy = get_ipython()
-    import IPython
-
-    IPython.core.interactiveshell.InteractiveShell.showtraceback = SPYExceptionHandler
-    IPython.core.interactiveshell.InteractiveShell.showsyntaxerror = SPYExceptionHandler
-    sys.excepthook = SPYExceptionHandler
-except:
-    sys.excepthook = SPYExceptionHandler
+# from .shared.errors import SPYExceptionHandler
+#
+# try:
+#     ipy = get_ipython()
+#     import IPython
+#
+#     IPython.core.interactiveshell.InteractiveShell.showtraceback = SPYExceptionHandler
+#     IPython.core.interactiveshell.InteractiveShell.showsyntaxerror = SPYExceptionHandler
+#     sys.excepthook = SPYExceptionHandler
+# except:
+#     sys.excepthook = SPYExceptionHandler
 
 # bring logging into global namespace
 from .shared.errors import log
