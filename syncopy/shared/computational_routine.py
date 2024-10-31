@@ -925,7 +925,7 @@ class ComputationalRoutine(ABC):
 
             futures = client.map(self.computeFunction, iterables, **self.cfg)
             # similar to tqdm progress bar
-            dd.progress(futures)
+            # dd.progress(futures)
             # actual results get handled by hdf5 operations inside `process_io`
             client.gather(futures)
 
@@ -976,7 +976,7 @@ class ComputationalRoutine(ABC):
         with h5py.File(out.filename, "r+") as h5fout:
             target = h5fout[self.outDatasetName]
 
-            for nblock in tqdm(range(self.numTrials), bar_format=self.tqdmFormat, disable=None):
+            for nblock in range(self.numTrials):
 
                 # Extract respective indexing tuples from constructed lists
                 ingrid = self.sourceLayout[nblock]
