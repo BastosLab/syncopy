@@ -860,7 +860,7 @@ def _make_trialdef(cfg, trialdefinition, samplerate):
     if isinstance(toi, np.ndarray):
 
         # Some index gymnastics to get trial begin/end samples
-        nToi = toi.size
+        nToi = dict(cfg)['chunkShape'][0]
         time = np.cumsum([nToi] * trialdefinition.shape[0])
         trialdefinition[:, 0] = time - nToi
         trialdefinition[:, 1] = time
