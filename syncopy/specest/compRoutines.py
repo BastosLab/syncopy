@@ -357,7 +357,12 @@ def mtmconvol_cF(
     # Get shape of output for dry-run phase
     nChannels = dat.shape[1]
     if isinstance(toi, np.ndarray):  # `toi` is an array of time-points
-        nTime = toi.size
+        # no padding: we lose half the window on each side
+        times = np.arange(0, dat.shape[0])
+        nTime = np.ceil(len(times[soi]) / (method_kwargs["nperseg"] - method_kwargs["noverlap"])).astype(np.intp)
+        nTime -= method_kwargs["nperseg"]
+        times = np.arange(0, nTime)
+        nTime = len(times[postselect])
         stftBdry = None
         stftPad = False
     else:  # `toi` is either 'all' or a percentage
@@ -855,7 +860,7 @@ def _make_trialdef(cfg, trialdefinition, samplerate):
     if isinstance(toi, np.ndarray):
 
         # Some index gymnastics to get trial begin/end samples
-        nToi = toi.size
+        nToi = dict(cfg)['chunkShape'][0]
         time = np.cumsum([nToi] * trialdefinition.shape[0])
         trialdefinition[:, 0] = time - nToi
         trialdefinition[:, 1] = time
